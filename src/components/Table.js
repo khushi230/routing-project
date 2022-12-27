@@ -5,14 +5,17 @@ const Table = ({ data, config }) => {
     return <th key={column.label}>{column.label}</th>;
   });
 
-  const renderedRows = data.map((fruit) => {
-    return (
-      <tr className="border-b-2" key={fruit.name}>
-        <td className="p-3">{fruit.name}</td>
-        <td className="p-3">
-          <div className={`p-3 m-2 ${fruit.color}`}></div>
+  const renderedRows = data.map((rowData) => {
+    const renderedCells = config.map((cell) => {
+      return (
+        <td key={cell.label} className="p-2">
+          {cell.render(rowData)}
         </td>
-        <td className="p-3">{fruit.score}</td>
+      );
+    });
+    return (
+      <tr className="border-b-2" key={rowData.name}>
+        {renderedCells}
       </tr>
     );
   });
